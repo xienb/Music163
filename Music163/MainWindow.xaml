@@ -1,0 +1,52 @@
+﻿<Window x:Class="Music163.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Music163"
+        mc:Ignorable="d"
+        Title="网易云音乐下载器" Height="600" Width="800" 
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox x:Name="TB_search" Height="40" Width="200" VerticalContentAlignment="Center" KeyDown="TB_search_KeyDown"></TextBox>
+            <Button x:Name="Btn_Search" Click="Btn_Search_Click" Height="40" Width="80">搜索</Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label VerticalContentAlignment="Center">下载路径：</Label>
+            <TextBox x:Name="TB_downloadPath" IsReadOnly="True" Height="25" Width="350" Text="" VerticalContentAlignment="Center"></TextBox>
+            <Button x:Name="Btn_Setting" Foreground="Blue" Height="20" Content="浏览" VerticalAlignment="Center" Margin="10 0 0 0" Cursor="Hand" Click="Btn_Setting_Click"></Button>
+        </StackPanel>
+        <DataGrid Grid.Row="2" x:Name="DG_FavoList" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+                              VerticalAlignment="Top" CanUserSortColumns="True"  CanUserResizeColumns="True" CanUserResizeRows="False" 
+                              CanUserReorderColumns="False" AlternationCount="2"  RowHeaderWidth="0" CanUserAddRows="False"
+                              HeadersVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Width="*" Binding="{Binding id}" Visibility="Collapsed"/>
+                <DataGridTextColumn  Width="*" Binding="{Binding name}"/>
+                <DataGridTextColumn  Width="*" Binding="{Binding alias}"/>
+                <DataGridTextColumn  Width="*" Binding="{Binding ars}"/>
+                <DataGridTextColumn  Width="*" Binding="{Binding dtt}"/>
+
+                <DataGridTemplateColumn  Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="下载" Click="Button_Click"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <local:DataGridPaging x:Name="DGP_Main" Grid.Row="3"  GridPaging="DataGridPaging_GridPaging"/>
+        <local:LoadingWait x:Name="_loading" Grid.RowSpan="4"  Visibility="Collapsed"/>
+    </Grid>
+</Window>
